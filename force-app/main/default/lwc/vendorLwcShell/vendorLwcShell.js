@@ -517,7 +517,7 @@ class InternalHostLwcShell extends HTMLElement {
         frame.removeAttribute("src");
         frame.removeAttribute("srcdoc");
         if (this._src) {
-            frame.setAttribute("src", this._src);
+            frame.setAttribute("src", this._appendHostMetaData(this._src));
         }
         else if (this._srcdoc) {
             try {
@@ -531,6 +531,20 @@ class InternalHostLwcShell extends HTMLElement {
         frame.onload = this._handleIframeLoad;
         frame.onerror = this._handleIframeError;
         this._log("updateIframeSrc", this._src ? "src" : this._srcdoc ? "srcdoc" : "blank");
+    }
+    _appendHostMetaData(src) {
+        try {
+            const url = new URL(src);
+            url.searchParams.set("hostMetaData", JSON.stringify({
+                instanceId: this._shellInstanceId,
+                hostAppOrigin: window.location.origin,
+            }));
+            return url.href;
+        }
+        catch (e) {
+            this._log("appendHostMetaData: invalid URL, falling back to original src", e instanceof Error ? e.message : String(e));
+            return src;
+        }
     }
     _handleIframeLoad = () => {
         this.dispatchEvent(new CustomEvent("iframe-loaded", {
