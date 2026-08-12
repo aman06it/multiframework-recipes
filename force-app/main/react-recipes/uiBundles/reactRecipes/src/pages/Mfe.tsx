@@ -44,6 +44,7 @@ import cancelableEventMfe from '../mfe/recipes/CancelableEvent.tsx?shiki';
 import autoResizeMfe from '../mfe/recipes/AutoResize.tsx?shiki';
 import themeTokensMfe from '../mfe/recipes/ThemeTokens.tsx?shiki';
 import dirtyStateMfe from '../mfe/recipes/DirtyState.tsx?shiki';
+import readyStateMfe from '../mfe/recipes/ReadyState.tsx?shiki';
 
 // LWC host JS sources (force-app/main/default/lwc/)
 import basicEmbedJs from '../../../../../default/lwc/mfeBasicEmbed/mfeBasicEmbed.js?shiki=js';
@@ -54,6 +55,7 @@ import cancelableEventJs from '../../../../../default/lwc/mfeCancelableEvent/mfe
 import autoResizeJs from '../../../../../default/lwc/mfeAutoResize/mfeAutoResize.js?shiki=js';
 import themeTokensJs from '../../../../../default/lwc/mfeThemeTokens/mfeThemeTokens.js?shiki=js';
 import dirtyStateJs from '../../../../../default/lwc/mfeDirtyState/mfeDirtyState.js?shiki=js';
+import readyStateJs from '../../../../../default/lwc/mfeReadyState/mfeReadyState.js?shiki=js';
 
 // LWC host HTML sources (force-app/main/default/lwc/)
 import basicEmbedHtml from '../../../../../default/lwc/mfeBasicEmbed/mfeBasicEmbed.html?shiki=html';
@@ -64,6 +66,7 @@ import cancelableEventHtml from '../../../../../default/lwc/mfeCancelableEvent/m
 import autoResizeHtml from '../../../../../default/lwc/mfeAutoResize/mfeAutoResize.html?shiki=html';
 import themeTokensHtml from '../../../../../default/lwc/mfeThemeTokens/mfeThemeTokens.html?shiki=html';
 import dirtyStateHtml from '../../../../../default/lwc/mfeDirtyState/mfeDirtyState.html?shiki=html';
+import readyStateHtml from '../../../../../default/lwc/mfeReadyState/mfeReadyState.html?shiki=html';
 
 interface FlavorSources {
   mfeSource: string;
@@ -192,6 +195,20 @@ const recipes: MfeRecipe[] = [
         mfeSource: dirtyStateMfe,
         lwcJsSource: dirtyStateJs,
         lwcHtmlSource: dirtyStateHtml,
+      },
+    ],
+  },
+  {
+    name: 'Ready State',
+    description:
+      'The host listens for the reserved sf-embedding.component.ready and sf-embedding.component.error events that <lightning-ui-embedding> dispatches on itself, rendering loading, ready, or error states. The error detail carries { phase, code, message, retryable }, so the host offers Retry only when a remount is worthwhile.',
+    flavors: [
+      {
+        hosting: 'externally-hosted',
+        framework: 'react',
+        mfeSource: readyStateMfe,
+        lwcJsSource: readyStateJs,
+        lwcHtmlSource: readyStateHtml,
       },
     ],
   },

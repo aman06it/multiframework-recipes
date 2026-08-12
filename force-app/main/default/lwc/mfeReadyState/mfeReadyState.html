@@ -1,0 +1,62 @@
+<template>
+    <lightning-card title="MFE Ready State" icon-name="custom:custom59">
+        <div class="slds-p-around_medium">
+            <p class="slds-text-body_regular slds-m-bottom_medium">
+                The host listens for the reserved
+                <code>sf-embedding.component.ready</code> and
+                <code>sf-embedding.component.error</code> events that
+                <code>&lt;lightning-ui-embedding&gt;</code> dispatches on itself, then
+                renders a loading, ready, or error state. Retry is offered only when the
+                error's <code>retryable</code> flag is <code>true</code>.
+            </p>
+
+            <template lwc:if={isLoading}>
+                <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                    <lightning-spinner
+                        alternative-text="Loading embedded app"
+                        size="small"
+                    ></lightning-spinner>
+                    <p class="slds-text-body_small slds-m-left_large">
+                        Waiting for the guest to report ready…
+                    </p>
+                </div>
+            </template>
+
+            <template lwc:if={isReady}>
+                <div class="slds-box slds-theme_success slds-m-bottom_medium">
+                    <p class="slds-text-title_caps">Ready</p>
+                    <p class="slds-text-body_small">
+                        The guest completed its bootstrap handshake.
+                    </p>
+                </div>
+            </template>
+
+            <template lwc:if={isError}>
+                <div class="slds-box slds-theme_error slds-m-bottom_medium">
+                    <p class="slds-text-title_caps">Error</p>
+                    <p><strong>phase:</strong> {error.phase}</p>
+                    <p><strong>code:</strong> {error.code}</p>
+                    <p class="slds-text-body_small">{error.message}</p>
+                    <template lwc:if={canRetry}>
+                        <lightning-button
+                            label="Retry"
+                            variant="brand"
+                            onclick={handleRetry}
+                            class="slds-m-top_small"
+                        ></lightning-button>
+                    </template>
+                </div>
+            </template>
+
+            <div class="shell-container" style="height: 400px">
+                <lightning-ui-embedding
+                    lwc:ref="embedding"
+                    sandbox="allow-forms allow-modals"
+                    shell-title="MFE Ready State"
+                    debug={debug}
+                    src={computedSrc}
+                ></lightning-ui-embedding>
+            </div>
+        </div>
+    </lightning-card>
+</template>

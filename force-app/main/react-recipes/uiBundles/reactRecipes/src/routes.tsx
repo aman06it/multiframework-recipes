@@ -26,6 +26,7 @@ import CancelableEvent from './mfe/recipes/CancelableEvent';
 import AutoResize from './mfe/recipes/AutoResize';
 import ThemeTokens from './mfe/recipes/ThemeTokens';
 import DirtyState from './mfe/recipes/DirtyState';
+import ReadyState from './mfe/recipes/ReadyState';
 
 export const routes: RouteObject[] = [
   {
@@ -131,6 +132,7 @@ export const routes: RouteObject[] = [
       { path: 'embedding/auto-resize', element: <AutoResize /> },
       { path: 'embedding/theme-tokens', element: <ThemeTokens /> },
       { path: 'embedding/dirty-state', element: <DirtyState /> },
+      { path: 'embedding/ready-state', element: <ReadyState /> },
     ],
   },
 ];
