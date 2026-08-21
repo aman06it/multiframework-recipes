@@ -6,7 +6,7 @@ name: Deploy guest app to GitHub Pages
 # which the <lightning-ui-embedding> hosts load from.
 on:
   push:
-    branches: [feature/microfrontend-recipes]
+    branches: [gitpage]
   workflow_dispatch:
 
 permissions:
