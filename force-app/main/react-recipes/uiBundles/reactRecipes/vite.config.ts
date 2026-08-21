@@ -38,6 +38,10 @@ export default defineConfig(({ mode }) => {
     // MFE recipes ?shiki source imports (the LWC host JS/HTML live outside
     // this UI bundle's src tree).
     server: {
+      // Listen on all network interfaces (0.0.0.0) so the dev server is
+      // reachable from other devices on the LAN via this machine's IP.
+      // Vite prints the Network: URL on startup.
+      host: true,
       fs: {
         allow: [resolve(__dirname, '../../../../..')],
       },

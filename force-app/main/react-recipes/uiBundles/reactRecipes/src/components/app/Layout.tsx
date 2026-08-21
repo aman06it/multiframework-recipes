@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { useLocation, useSearchParams } from 'react-router';
 import {
   Card,
@@ -24,6 +24,28 @@ export interface RecipeItem {
 interface LayoutProps {
   header: string;
   recipes?: RecipeItem[];
+}
+
+/**
+ * Tracks whether the viewport is at the `lg` breakpoint (>=1024px) or wider.
+ * The preview|code column split and its expand/collapse animation are a
+ * desktop-only affordance; on smaller screens the panels stack vertically, so
+ * we must NOT apply the inline `grid-template-columns` there (inline styles
+ * would otherwise override the responsive Tailwind classes).
+ */
+function useIsDesktop() {
+  const query = '(min-width: 1024px)';
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    setIsDesktop(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return isDesktop;
 }
 
 export default function Layout({ header, recipes = [] }: LayoutProps) {
@@ -59,6 +81,7 @@ export default function Layout({ header, recipes = [] }: LayoutProps) {
 
   const [codeExpanded, setCodeExpanded] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const isDesktop = useIsDesktop();
   const selected = recipes[selectedIndex];
 
   // Collapse code when switching recipes
@@ -82,20 +105,20 @@ export default function Layout({ header, recipes = [] }: LayoutProps) {
         </div>
       )}
 
-      {/* Two-column layout: sidebar | main */}
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,4fr)] gap-5">
-        {/* Sidebar */}
+      {/* Responsive layout: stacked on mobile, sidebar | main on desktop */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,4fr)]">
+        {/* Sidebar — a horizontal scroll strip on mobile, a sticky column on desktop */}
         <nav
-          className="sticky top-20 h-[calc(100vh-12rem)] overflow-y-auto rounded-lg border border-primary/70 bg-card p-2"
+          className="rounded-lg border border-primary/70 bg-card p-2 lg:sticky lg:top-20 lg:h-[calc(100vh-12rem)] lg:overflow-y-auto"
           aria-label="Recipes"
         >
-          <ul className="space-y-0.5">
+          <ul className="flex gap-1 overflow-x-auto lg:block lg:space-y-0.5 lg:overflow-x-visible">
             {recipes.map((recipe, i) => (
-              <li key={recipe.name}>
+              <li key={recipe.name} className="shrink-0 lg:shrink">
                 <button
                   onClick={() => selectRecipe(i)}
                   className={cn(
-                    'w-full text-left px-3 py-2 text-sm rounded-md transition-colors',
+                    'whitespace-nowrap text-left px-3 py-2 text-sm rounded-md transition-colors lg:w-full',
                     i === selectedIndex
                       ? 'bg-primary text-primary-foreground font-medium shadow-sm'
                       : 'text-muted-foreground hover:text-foreground hover:bg-accent'
@@ -112,23 +135,28 @@ export default function Layout({ header, recipes = [] }: LayoutProps) {
         {selected ? (
           <div
             className={cn(
-              'grid items-start',
-              isTransitioning && 'transition-[grid-template-columns,gap] duration-300 ease-in-out'
+              'grid grid-cols-1 gap-5 lg:items-start',
+              isTransitioning && isDesktop &&
+                'transition-[grid-template-columns,gap] duration-300 ease-in-out'
             )}
-            style={{
-              gridTemplateColumns: codeExpanded
-                ? '0fr minmax(0,1fr)'
-                : 'minmax(0,1fr) minmax(0,1fr)',
-              gap: codeExpanded ? '0px' : '1.25rem',
-            }}
+            style={
+              isDesktop
+                ? {
+                    gridTemplateColumns: codeExpanded
+                      ? '0fr minmax(0,1fr)'
+                      : 'minmax(0,1fr) minmax(0,1fr)',
+                    gap: codeExpanded ? '0px' : '1.25rem',
+                  }
+                : undefined
+            }
           >
             <div
               className={cn(
-                'sticky top-20 h-[calc(100vh-12rem)] min-w-0 overflow-hidden rounded-xl',
-                isTransitioning && 'transition-opacity duration-300',
-                codeExpanded
+                'min-w-0 overflow-hidden rounded-xl lg:sticky lg:top-20 lg:h-[calc(100vh-12rem)]',
+                isTransitioning && isDesktop && 'transition-opacity duration-300',
+                codeExpanded && isDesktop
                   ? 'opacity-0 pointer-events-none'
-                  : 'opacity-100 overflow-y-auto'
+                  : 'opacity-100 lg:overflow-y-auto'
               )}
             >
               <Card className="min-h-full border-primary/70 shadow-none">
@@ -145,7 +173,7 @@ export default function Layout({ header, recipes = [] }: LayoutProps) {
             </div>
 
             {/* Code — container always mounted, content fades in */}
-            <div className="sticky top-20 h-[calc(100vh-12rem)]" style={{ contain: 'layout style' }}>
+            <div className="h-[60vh] lg:sticky lg:top-20 lg:h-[calc(100vh-12rem)]" style={{ contain: 'layout style' }}>
               <CodeBlock
                 source={selected.source}
                 expanded={codeExpanded}

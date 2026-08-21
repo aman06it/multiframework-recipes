@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 
 export default class MfeDirtyState extends LightningElement {
-    @api baseUrl = 'http://localhost:5173';
+    @api baseUrl = 'https://aman06it.github.io/multiframework-recipes';
     debug = false;
 
     @track hasSignal = false;
@@ -10,7 +10,7 @@ export default class MfeDirtyState extends LightningElement {
 
     get computedSrc() {
         const url = new URL(this.baseUrl);
-        url.pathname = '/embedding/dirty-state';
+        url.pathname = `${url.pathname.replace(/\/$/, "")}/embedding/dirty-state`;
         return url.toString();
     }
 

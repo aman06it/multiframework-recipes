@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 
 export default class MfeReceiveEvent extends LightningElement {
-    @api baseUrl = 'http://localhost:5173';
+    @api baseUrl = 'https://aman06it.github.io/multiframework-recipes';
     debug = false;
 
     @track sentCount = 0;
@@ -9,7 +9,7 @@ export default class MfeReceiveEvent extends LightningElement {
 
     get computedSrc() {
         const url = new URL(this.baseUrl);
-        url.pathname = '/embedding/receive-event';
+        url.pathname = `${url.pathname.replace(/\/$/, "")}/embedding/receive-event`;
         return url.toString();
     }
 

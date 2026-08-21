@@ -180,7 +180,7 @@ export default function SearchBar() {
           />
 
           {/* Dropdown */}
-          <div className="absolute right-0 top-full mt-2 z-50 w-[420px] rounded-xl border border-border bg-background shadow-lg">
+          <div className="absolute right-0 top-full mt-2 z-50 w-[min(420px,calc(100vw-2rem))] rounded-xl border border-border bg-background shadow-lg">
             {/* Search input */}
             <div className="flex items-center gap-2 border-b border-border px-3">
               <Search className="h-4 w-4 text-muted-foreground shrink-0" />

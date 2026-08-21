@@ -6,7 +6,7 @@ export default function AppLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Navbar />
-      <main className="mx-auto w-full max-w-screen-2xl flex-1 px-6 py-6">
+      <main className="mx-auto w-full max-w-screen-2xl flex-1 px-4 py-4 sm:px-6 sm:py-6">
         <Outlet />
       </main>
       <Footer />

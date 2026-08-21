@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 
 export default class MfeCancelableEvent extends LightningElement {
-    @api baseUrl = 'http://localhost:5173';
+    @api baseUrl = 'https://aman06it.github.io/multiframework-recipes';
     debug = false;
 
     @track lastDecision = '';
@@ -11,7 +11,7 @@ export default class MfeCancelableEvent extends LightningElement {
 
     get computedSrc() {
         const url = new URL(this.baseUrl);
-        url.pathname = '/embedding/cancelable-event';
+        url.pathname = `${url.pathname.replace(/\/$/, "")}/embedding/cancelable-event`;
         return url.toString();
     }
 
