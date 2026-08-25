@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Navigate to Contacts" icon-name="standard:contact">
+        <div class="slds-p-around_medium">
+            <p class="slds-text-body_regular slds-m-bottom_medium">
+                Uses <code>NavigationMixin</code> to open the Contacts tab.
+            </p>
+            <lightning-button
+                label="View Contacts"
+                variant="brand"
+                icon-name="utility:contact"
+                onclick={handleNavigate}
+            ></lightning-button>
+        </div>
+    </lightning-card>
+</template>
