@@ -7,6 +7,7 @@
     "dev": "vite",
     "dev:design": "vite --mode design",
     "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && VITE_PAGES_BASE=/multiframework-recipes vite build && node scripts/rewrite-pages-assets.mjs",
     "build:e2e": "npm run build && node scripts/rewrite-e2e-assets.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
