@@ -119,30 +119,28 @@ function ContactItem({ contact }: { contact: ContactRow }) {
   return (
     <li className="flex flex-col gap-1 py-2 first:pt-0 last:pb-0">
       <span className="font-medium">{contact.name ?? 'Unnamed'}</span>
-      <div className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+      <div className="text-muted-foreground grid grid-cols-[1rem_1fr] items-center gap-x-2 gap-y-1 text-xs">
         {contact.title && (
-          <span className="flex items-center gap-1">
+          <>
             <Briefcase className="size-3.5" aria-hidden />
-            {contact.title}
-          </span>
+            <span>{contact.title}</span>
+          </>
         )}
         {contact.email && (
-          <a
-            href={`mailto:${contact.email}`}
-            className="hover:text-primary flex items-center gap-1"
-          >
+          <>
             <Mail className="size-3.5" aria-hidden />
-            {contact.email}
-          </a>
+            <a href={`mailto:${contact.email}`} className="hover:text-primary">
+              {contact.email}
+            </a>
+          </>
         )}
         {contact.phone && (
-          <a
-            href={`tel:${contact.phone}`}
-            className="hover:text-primary flex items-center gap-1"
-          >
+          <>
             <Phone className="size-3.5" aria-hidden />
-            {contact.phone}
-          </a>
+            <a href={`tel:${contact.phone}`} className="hover:text-primary">
+              {contact.phone}
+            </a>
+          </>
         )}
       </div>
     </li>
