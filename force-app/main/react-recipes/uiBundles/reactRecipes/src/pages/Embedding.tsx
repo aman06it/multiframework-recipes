@@ -78,6 +78,27 @@ const recipes: EmbeddingRecipe[] = [
     description:
       "Indirect org access: the host runs one GraphQL query for the current account's related contacts and pushes the rows down as an event.",
   },
+  {
+    name: 'Navigate To',
+    route: '/embedding/navigate-to',
+    source: `${GUEST_SOURCE_BASE}/NavigateTo.tsx`,
+    description:
+      'Guest asks the host to navigate (viewSDK.navigateTo) — the host runs lightning/navigation.',
+  },
+  {
+    name: 'Display Toast',
+    route: '/embedding/display-toast',
+    source: `${GUEST_SOURCE_BASE}/DisplayToast.tsx`,
+    description:
+      'Guest asks the host to show a native toast (viewSDK.displayToast) with level, title and mode.',
+  },
+  {
+    name: 'Display Modal',
+    route: '/embedding/display-modal',
+    source: `${GUEST_SOURCE_BASE}/DisplayModal.tsx`,
+    description:
+      'Guest asks the host to open a modal (viewSDK.displayModal); resolves when the user closes it.',
+  },
 ];
 
 export default function Embedding() {

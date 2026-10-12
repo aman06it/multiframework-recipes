@@ -32,6 +32,9 @@ import ThemeTokens from './recipes/embedding/ThemeTokens';
 import UnsavedChanges from './recipes/embedding/UnsavedChanges';
 import ReceiveEvent from './recipes/embedding/ReceiveEvent';
 import GraphqlData from './recipes/embedding/GraphqlData';
+import DisplayModal from './recipes/embedding/DisplayModal';
+import DisplayToast from './recipes/embedding/DisplayToast';
+import NavigateTo from './recipes/embedding/NavigateTo';
 
 export const routes: RouteObject[] = [
   {
@@ -142,6 +145,9 @@ export const routes: RouteObject[] = [
       { path: 'embedding/unsaved-changes', element: <UnsavedChanges /> },
       { path: 'embedding/receive-event', element: <ReceiveEvent /> },
       { path: 'embedding/graphql-data', element: <GraphqlData /> },
+      { path: 'embedding/display-modal', element: <DisplayModal /> },
+      { path: 'embedding/display-toast', element: <DisplayToast /> },
+      { path: 'embedding/navigate-to', element: <NavigateTo /> },
     ],
   },
 ];

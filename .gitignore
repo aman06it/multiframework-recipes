@@ -67,3 +67,7 @@ test-results/
 # Local E2E org scratch (auth, node_modules, reports, .env)
 e2e-org/
 
+
+# yalc
+.yalc/
+yalc.lock

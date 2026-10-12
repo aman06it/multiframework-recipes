@@ -97,6 +97,36 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>uiEmbeddingNavigateTo</componentName>
+                <identifier>uiEmbeddingNavigateTo_1</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-a1b2c3d4-navigate-to-0000-000000000011</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>uiEmbeddingDisplayToast</componentName>
+                <identifier>uiEmbeddingDisplayToast_1</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-a1b2c3d4-display-toast-0000-000000000012</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>uiEmbeddingDisplayModal</componentName>
+                <identifier>uiEmbeddingDisplayModal_1</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-a1b2c3d4-display-modal-0000-000000000013</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentName>uiEmbeddingReceiveEvent</componentName>
                 <identifier>uiEmbeddingReceiveEvent_1</identifier>
             </componentInstance>
@@ -314,6 +344,63 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
                 <identifier>flexipage_accordionSection11</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value
+          >Facet-a1b2c3d4-navigate-to-0000-000000000011</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Navigate the host from the guest</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>name</name>
+                    <value>accordionSection12</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:accordionSection</componentName>
+                <identifier>flexipage_accordionSection12</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value
+          >Facet-a1b2c3d4-display-toast-0000-000000000012</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Show a host toast from the guest</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>name</name>
+                    <value>accordionSection13</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:accordionSection</componentName>
+                <identifier>flexipage_accordionSection13</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value
+          >Facet-a1b2c3d4-display-modal-0000-000000000013</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Open a host modal from the guest</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>name</name>
+                    <value>accordionSection14</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:accordionSection</componentName>
+                <identifier>flexipage_accordionSection14</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-3a12688c-287e-49b2-9576-93955360aea7</name>

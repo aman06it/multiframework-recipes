@@ -8,14 +8,14 @@
                            footer open GitHub in a new tab; that's the only
                            extra capability these read-only guests need.
                            https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox
-             shell-title — accessible title applied to the iframe element
+             title       — accessible title applied to the iframe element
              src         — the guest URL (baseUrl + a per-recipe route)
              props       — object shipped to the guest through ui-state; the
                            guest reads it via viewSDK.getUiState()
-           Every recipe uses the same shape; only shell-title, src, and props change. -->
+           Every recipe uses the same shape; only title, src, and props change. -->
       <lightning-ui-embedding
         sandbox="allow-popups"
-        shell-title="Basic Render"
+        title="Basic Render"
         src={computedSrc}
         props={account}
       ></lightning-ui-embedding>
