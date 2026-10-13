@@ -4,7 +4,8 @@
  * viewSDK.navigateTo() sends a `ui/navigate-to` request over the bridge and the
  * host performs real Lightning navigation (lightning/navigation). Pass a
  * PageReference to target a Lightning page, or a URL string, which navigates as a
- * `standard__webPage`.
+ * `standard__webPage`. A PageReference can also carry `state` (string key/value
+ * pairs, sent as URL query parameters), e.g. `{ filterName: 'AllAccounts' }`.
  *
  * The guest lives in a sandboxed iframe and can't navigate the Salesforce shell
  * itself; this is how it asks the host to.
@@ -30,6 +31,14 @@ const TARGETS: { label: string; destination: string | PageReference }[] = [
     destination: {
       type: 'standard__objectPage',
       attributes: { objectApiName: 'Account', actionName: 'list' },
+    },
+  },
+  {
+    label: 'Account list (All Accounts filter)',
+    destination: {
+      type: 'standard__objectPage',
+      attributes: { objectApiName: 'Account', actionName: 'list' },
+      state: { filterName: 'AllAccounts' },
     },
   },
   {
