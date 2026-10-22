@@ -7,7 +7,7 @@
  *
  *   - `level`  info | success | warning | error   (toast variant)
  *   - `title`  optional heading above the message
- *   - `mode`   dismissible | pester | sticky      (how the toast dismisses)
+ *   - `mode`   dismissible | sticky            (how the toast dismisses)
  *
  * @see NavigateTo, DisplayModal
  */
@@ -22,12 +22,13 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import type { MessageLevel } from '@salesforce/platform-sdk';
+import type { MessageLevel, ToastOptions } from '@salesforce/platform-sdk';
 
 const LEVELS: MessageLevel[] = ['info', 'success', 'warning', 'error'];
+const MODES: NonNullable<ToastOptions['mode']>[] = ['dismissible', 'sticky'];
 
 export default function DisplayToast() {
-  const [sticky, setSticky] = useState(false);
+  const [mode, setMode] = useState<(typeof MODES)[number]>('dismissible');
   const [status, setStatus] = useState<string | null>(null);
 
   async function show(level: MessageLevel) {
@@ -42,9 +43,9 @@ export default function DisplayToast() {
         title: `A ${level} toast`,
         message: 'Shown by the host on behalf of the guest.',
         level,
-        mode: sticky ? 'sticky' : 'dismissible',
+        mode,
       });
-      setStatus(`Host showed the ${level} toast.`);
+      setStatus(`Host showed the ${level} toast (${mode}).`);
     } catch (err) {
       setStatus(
         `Toast failed: ${err instanceof Error ? err.message : String(err)}`
@@ -71,12 +72,18 @@ export default function DisplayToast() {
             ))}
           </div>
           <label className="flex items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={sticky}
-              onChange={e => setSticky(e.target.checked)}
-            />
-            Sticky (stays until closed)
+            Mode
+            <select
+              value={mode}
+              onChange={e => setMode(e.target.value as typeof mode)}
+              className="border-input rounded border px-2 py-1"
+            >
+              {MODES.map(m => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
           </label>
           {status && (
             <p role="status" className="text-muted-foreground text-xs">

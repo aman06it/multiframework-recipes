@@ -49,8 +49,46 @@ const TARGETS: { label: string; destination: string | PageReference }[] = [
     },
   },
   {
+    label: 'Record page',
+    destination: {
+      type: 'standard__recordPage',
+      attributes: {
+        recordId: '001000000000000AAA',
+        objectApiName: 'Account',
+        actionName: 'view',
+      },
+    },
+  },
+  {
+    // `standard__app` takes a nested PageReference in `pageRef`.
+    label: 'App with nested page reference',
+    destination: {
+      type: 'standard__app',
+      attributes: {
+        appTarget: 'standard__LightningSales',
+        pageRef: {
+          type: 'standard__objectPage',
+          attributes: { objectApiName: 'Contact', actionName: 'home' },
+        },
+      },
+    },
+  },
+  {
     label: 'URL string (/lightning/page/home)',
     destination: '/lightning/page/home',
+  },
+  {
+    label: 'Absolute URL (https://www.salesforce.com)',
+    destination: 'https://www.salesforce.com',
+  },
+  {
+    // A function can't cross the host boundary; the SDK rejects it up front
+    // instead of leaving the request pending.
+    label: 'Not cloneable (expect error)',
+    destination: {
+      type: 'standard__namedPage',
+      attributes: { pageName: 'home', callback: () => undefined },
+    } as unknown as PageReference,
   },
 ];
 
