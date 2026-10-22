@@ -7,31 +7,28 @@ A collection of easy-to-digest code examples for building apps on the Salesforce
 
 This sample application is designed to run on the Salesforce Platform. It covers what a frontend developer needs to know about Salesforce, and what a Salesforce developer needs to know about modern frameworks — taught at the intersection.
 
-> [!NOTE]
-> **React Recipes** is available now. **Angular Recipes** is a work-in-progress preview; **Micro-Frontend Recipes** is a Developer Preview feature.
-
 **Learn more:** Read the [Salesforce Multi-Framework developer guide](https://developer.salesforce.com/docs/platform/multiframework/guide) for a comprehensive overview.
 
 ## Table of Contents
 
 - [Multi-Framework Recipes](#multi-framework-recipes)
-- [Micro-Frontend Recipes](#micro-frontend-recipes-developer-preview)
+- [Micro-Frontend Recipes](#micro-frontend-recipes)
 - [Prerequisites](#prerequisites)
 - [Setting up a Scratch Org](#setting-up-a-scratch-org)
 - [Optional Installation Instructions](#optional-installation-instructions)
 
 ## Multi-Framework Recipes
 
-| App                                                           | Framework | README                                             |
-| ------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| [React Recipes](force-app/main/react-recipes)                 | React     | [README](force-app/main/react-recipes/README.md)   |
-| [Angular Recipes _(preview)_](force-app/main/angular-recipes) | Angular   | [README](force-app/main/angular-recipes/README.md) |
+| App                                               | Framework | README                                             |
+| ------------------------------------------------- | --------- | -------------------------------------------------- |
+| [React Recipes](force-app/main/react-recipes)     | React     | [README](force-app/main/react-recipes/README.md)   |
+| [Angular Recipes](force-app/main/angular-recipes) | Angular   | [README](force-app/main/angular-recipes/README.md) |
 
-## Micro-Frontend Recipes (Developer Preview)
+## Micro-Frontend Recipes
 
-**[Micro-Frontend Recipes](force-app/main/microfrontend-recipes)** _(preview)_ demonstrates how to embed an externally hosted app inside a Lightning page and exchange data and events over the Platform SDK.
+**[Micro-Frontend Recipes](force-app/main/microfrontend-recipes)** demonstrates how to embed an externally hosted app inside a Lightning page and exchange data and events over the Platform SDK.
 
-Like Angular, it's currently excluded from the standard deploy. See its [README](force-app/main/microfrontend-recipes/README.md) for the steps.
+It deploys with everything else below. Its guests are served from your machine, so it needs one extra step — see [Running the guest server](force-app/main/microfrontend-recipes/README.md#running-the-guest-server).
 
 ## Prerequisites
 
@@ -47,7 +44,7 @@ Like Angular, it's currently excluded from the standard deploy. See its [README]
 
 ## Setting up a Scratch Org
 
-These steps deploy the shared metadata and the default **React Recipes** app. For framework-specific development, build, and testing — and for the **Angular Recipes** and **Micro-Frontend Recipes** previews — follow the per-app READMEs (see [Multi-Framework Recipes](#multi-framework-recipes) and [Micro-Frontend Recipes](#micro-frontend-recipes-developer-preview)).
+These steps deploy the shared metadata and **all three** recipe apps — React, Angular, and Micro-Frontend — as a single project. The per-app READMEs cover local development and testing only.
 
 1. If you haven't already done so, authorize your hub org and provide it with an alias (**myhuborg** in the command below):
 
@@ -68,24 +65,26 @@ These steps deploy the shared metadata and the default **React Recipes** app. Fo
    sf org create scratch -d -f config/project-scratch-def.json -a recipes
    ```
 
-1. Install dependencies and build the apps:
+1. Install dependencies and build the apps (builds both the React and Angular UI bundles):
 
    ```bash
    npm run install:all
    npm run build
    ```
 
-1. Deploy metadata and the UI bundle:
+1. Deploy the metadata and all UI bundles:
 
    ```bash
    sf project deploy start --source-dir force-app
    ```
 
-1. Assign the **recipes** permission set to the default user:
+1. Assign the **Recipes (All Frameworks)** permission set group to the default user. It bundles the shared `recipes` set with the React, Angular, and Micro-Frontend sets:
 
    ```bash
-   sf org assign permset -n recipes
+   sf org assign permset -n recipesAll
    ```
+
+   > If this fails with _"You can only assign users to permission set groups that have the 'Updated' status"_, the group is still recalculating after the deploy. Wait a few seconds and run the command again.
 
 1. Import sample data:
 
@@ -93,7 +92,9 @@ These steps deploy the shared metadata and the default **React Recipes** app. Fo
    sf data tree import -p ./data/data-plan.json
    ```
 
-1. Open the org and select the **React Recipes** app in App Launcher:
+1. Open the org and pick any of the **React Recipes**, **Angular Recipes**, or **Micro-Frontend Recipes** apps in App Launcher:
+
+   > **Micro-Frontend Recipes** embeds guests from `http://localhost:5173`, so start a guest dev server first — see [Running the guest server](force-app/main/microfrontend-recipes/README.md#running-the-guest-server).
 
    ```bash
    sf org open

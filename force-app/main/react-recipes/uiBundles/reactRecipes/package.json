@@ -42,7 +42,7 @@
     "@graphql-codegen/typescript": "^5.0.6",
     "@graphql-codegen/typescript-operations": "^5.0.6",
     "@graphql-eslint/eslint-plugin": "^4.1.0",
-    "@graphql-tools/utils": "^11.0.0",
+    "@graphql-tools/utils": "^12.0.1",
     "@playwright/test": "^1.49.0",
     "@salesforce/vite-plugin-ui-bundle": "^12.3.3",
     "@shikijs/twoslash": "^4.0.2",
@@ -69,9 +69,9 @@
     "shiki": "^4.0.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
-    "vite": "^7.2.4",
+    "vite": "^7.3.7",
     "vite-plugin-graphql-codegen": "^3.6.3",
-    "vitest": "^4.0.17",
+    "vitest": "^4.1.11",
     "vitest-axe": "^1.0.0-pre.5"
   }
 }
